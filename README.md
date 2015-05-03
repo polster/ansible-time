@@ -16,12 +16,12 @@ This [Ansible](http://www.ansible.com/home) role configures the system time usin
 * Add a similar line to your Ansible playbook's role section as shown below:
 ```
 roles:
-    - { role: time, time_ntp_config_server_list: [ 'time1.mydomain.com', 'time2.mydomain.com' ] }
+    - { role: ansible-time, time_ntp_config_server_list: [ 'time1.mydomain.com', 'time2.mydomain.com' ] }
 ```
 * Or with tags:
 ```
 roles:
-    - { role: time, time_ntp_config_server_list: [ 'time1.mydomain.com', 'time2.mydomain.com' ], tags: [ 'ntp', 'time' ] }
+    - { role: ansible-time, time_ntp_config_server_list: [ 'time1.mydomain.com', 'time2.mydomain.com' ], tags: [ 'ntp', 'time' ] }
 ```
 
 ### Sample playbook
@@ -32,7 +32,7 @@ roles:
     vars_files:
       - vars/main.yml
     roles:
-      - { role: time }
+      - { role: ansible-time }
 ```
 * vars/main.yml:
 ```
