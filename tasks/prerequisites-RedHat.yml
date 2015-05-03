@@ -1,0 +1,8 @@
+# RedHat distro specific prerequisites.
+---
+
+- name: Make sure required OS packages are present (RedHat)
+  yum:
+    name: "ntp"
+    state: present
+  tags: [ "package", "ntp" ]

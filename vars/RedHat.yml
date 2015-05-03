@@ -1,0 +1,8 @@
+# Variables that shall not be overridden.
+---
+
+# The ntp daemon name
+time_ntp_daemon_name: "ntpd"
+
+# The path to the drift file
+time_ntp_config_driftfile: /var/lib/ntp/drift

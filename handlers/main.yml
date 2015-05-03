@@ -1,0 +1,6 @@
+---
+
+- name: restart ntp
+  service:
+    name: "{{ time_ntp_daemon_name }}"
+    state: restarted

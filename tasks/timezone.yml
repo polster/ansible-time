@@ -1,0 +1,21 @@
+# Configures the time zone accordingly.
+---
+
+- name: Register stat infos about localtime symlink
+  stat:
+    path: "/etc/localtime"
+  register: _localtime_symlink
+  changed_when: false
+  always_run: yes
+
+- name: Unlink localtime
+  file:
+    path: "/etc/localtime"
+    state: absent
+  when: _localtime_symlink.stat.exists and _localtime_symlink.stat.lnk_source != '/usr/share/zoneinfo/{{ time_zoneinfo }}'
+
+- name: Link zone info
+  file:
+    src: "/etc/localtime"
+    dest: "/usr/share/zoneinfo/{{ time_zoneinfo }}"
+  when: _localtime_symlink.stat.lnk_source != '/usr/share/zoneinfo/{{ time_zoneinfo }}'

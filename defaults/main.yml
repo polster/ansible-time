@@ -1,0 +1,8 @@
+# Default varaibles, may be overridden by depending roles.
+---
+
+# List containing one or more time sync servers (IP or host)
+time_ntp_config_server_list: [ '0.pool.ntp.org', '1.pool.ntp.org', '2.pool.ntp.org', '3.pool.ntp.org' ]
+
+# The time zone to be used
+time_zoneinfo: "Europe/Zurich"

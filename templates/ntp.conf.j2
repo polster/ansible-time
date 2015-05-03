@@ -1,0 +1,19 @@
+# {{ ansible_managed }}
+
+driftfile {{ time_ntp_config_driftfile }}
+
+{% for server in time_ntp_config_server_list %}
+server {{ server }}
+{% endfor %}
+
+{% if time_ntp_config_statistics %}
+statistics {{ time_ntp_config_statistics }}
+{% endif %}
+
+{% for filegen in time_ntp_config_filegen_list %}
+filegen {{ filegen }}
+{% endfor %}
+
+{% for restrict in time_ntp_config_restrict %}
+restrict {{ restrict }}
+{% endfor %}

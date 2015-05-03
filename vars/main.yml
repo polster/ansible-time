@@ -1,0 +1,24 @@
+# Variables that shall not be overridden.
+---
+
+# Permit time synchronization with our time source, but do not
+# permit the source to query or modify the service on this system
+time_ntp_config_restrict:
+  # ip v4
+  - '-4 default kod notrap nomodify nopeer noquery'
+  # ip v6
+  - '-6 default kod notrap nomodify nopeer noquery'
+  # Permit all access over the loopback interface.  This could
+  # be tightened as well, but to do so would effect some of
+  # the administrative functions
+  - '127.0.0.1'
+  - '::1'
+
+# Statistics configuration
+time_ntp_config_filegen_list:
+  - 'loopstats file loopstats type day enable'
+  - 'peerstats file peerstats type day enable'
+  - 'clockstats file clockstats type day enable'
+
+# Enable writing of statistics records
+time_ntp_config_statistics: 'loopstats peerstats clockstats'

@@ -1,0 +1,14 @@
+# Installs and configures the network time protocol service.
+---
+
+- include_vars: "RedHat.yml"
+  when: ansible_os_family == 'RedHat'
+  tags: [ "config", "package", "service", "ntp" ]
+
+- include: prerequisites-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: ntp-client.yml
+
+- include: timezone.yml
+  tags: [ "config", "timezone" ]
