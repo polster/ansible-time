@@ -6,7 +6,6 @@
     src: "ntp.conf.j2"
     dest: "/etc/ntp.conf"
   notify: restart ntp
-  register: _copy_ntp_config
   tags: [ "config", "package", "ntp" ]
 
 - name: Make sure ntp daemon is enabled to start after boot
@@ -15,27 +14,3 @@
     enabled: yes
     pattern: "/ntpd"
   tags: [ "service", "ntp" ]
-
-- name: Info
-  debug:
-    msg: "Forcing system time update only if ntp config has changed"
-
-- name: Make sure ntp daemon is stopped before forcing system time update
-  service:
-    name: "{{ time_ntp_daemon_name }}"
-    state: stopped
-  notify: restart ntp
-  when: _copy_ntp_config.changed
-  tags: [ "config", "package", "ntp" ]
-
-- name: Force time sync (time out if no response)
-  command: "{{ time_ntp_daemon_name }} -gq"
-  async: 15
-  poll: 5
-  when: _copy_ntp_config.changed
-  tags: [ "config", "package", "ntp" ]
-
-- name: Sync hardware clock because ntp only affercts the system time
-  command: "hwclock --systohc"
-  when: _copy_ntp_config.changed
-  tags: [ "config", "package", "ntp" ]
