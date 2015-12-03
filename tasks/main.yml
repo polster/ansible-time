@@ -10,5 +10,6 @@
 
 - include: ntp-client.yml
 
-- include: timezone.yml
+- include: timezone-RedHat.yml
+  when: ansible_os_family == 'RedHat'
   tags: [ "config", "timezone" ]

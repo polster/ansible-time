@@ -1,0 +1,20 @@
+---
+
+- name: Register stat infos about the timezone
+  stat:
+    path: "/etc/localtime"
+  register: _localtime_status
+  changed_when: false
+  always_run: yes
+
+- name: Remove localtime path if present and not a symlink
+  file:
+    path: "/etc/localtime"
+    state: absent
+  when: _localtime_status.stat.exists and _localtime_status.stat.islnk == False
+
+- name: Link zone info
+  file:
+    src: "/usr/share/zoneinfo/{{ time_zoneinfo }}"
+    dest: "/etc/localtime"
+    state: link
